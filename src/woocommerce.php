@@ -13,11 +13,11 @@ if (defined('WC_ABSPATH')) {
     function wc_template_loader(String $template)
     {
         if (strpos($template, get_template_directory()) !== false) {
-            return locate_template(WC()->template_path() . str_replace(get_template_directory() . '/woocommerce/', '', $template)) ? : $template;
+            return (locate_template(WC()->template_path() . str_replace(get_template_directory() . '/woocommerce/', '', $template))) ? : ($template);
         }
 
-        return strpos($template, WC_ABSPATH) === -1
-            ? $template
+        return (strpos($template, WC_ABSPATH) === -1)
+            ? ($template)
             : (locate_template(WC()->template_path() . str_replace(WC_ABSPATH . 'templates/', '', $template)) ? : $template);
     }
     add_filter('template_include', __NAMESPACE__ . '\\wc_template_loader', 100, 1);
@@ -59,10 +59,10 @@ if (defined('WC_ABSPATH')) {
 
         // return theme filename for status screen
         if (is_admin() && ! wp_doing_ajax() && function_exists('get_current_screen') && get_current_screen() && get_current_screen()->id === 'woocommerce_page_wc-status') {
-            return $theme_template ? : $template;
+            return ($theme_template) ? : ($template);
         }
 
         // return empty file, output already rendered by 'woocommerce_before_template_part' hook
-        return $theme_template ? get_stylesheet_directory() . '/index.php' : $template;
+        return ($theme_template) ? (get_stylesheet_directory() . '/index.php') : ($template);
     }, 100, 3);
 }
